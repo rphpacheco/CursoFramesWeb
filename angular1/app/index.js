@@ -1,5 +1,9 @@
-angular.module('primeiraApp', [
-    'ui.router',
-    'ngAnimate',
-    'toastr'
-])
+(function() {
+
+    angular.module('primeiraApp', [
+        'ui.router',
+        'ngAnimate',
+        'toastr'
+    ])
+
+})()

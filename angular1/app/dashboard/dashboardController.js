@@ -1,20 +1,24 @@
-angular.module('primeiraApp').controller('DashboardCtrl', [
-    '$scope',
+(function() {
+
+    angular.module('primeiraApp').controller('DashboardCtrl', [
     '$http',
     DashboardController
-])
+    ])
 
-function DashboardController($scope, $http) {
+    function DashboardController($http) {
 
-    $scope.getSummary = function() {
-        const url = 'http://localhost:3002/api/billingSummary'
-        $http.get(url).then(function(response) {
-            const {credit = 0, debt = 0} = response.data
-            $scope.credit = credit
-            $scope.debt = debt
-            $scope.total = credit - debt
-        })
+        const vm = this
+        vm.getSummary = function() {
+            const url = 'http://localhost:3002/api/billingSummary'
+            $http.get(url).then(function(response) {
+                const {credit = 0, debt = 0} = response.data
+                vm.credit = credit
+                vm.debt = debt
+                vm.total = credit - debt
+            })
+        }
+
+        vm.getSummary()
     }
 
-    $scope.getSummary()
-}
+})()
