@@ -12,14 +12,15 @@
         const url = 'http://localhost:3002/api/billingCycles'
 
         vm.refresh = function() {
+            const limitPage = 7
             const page = parseInt($location.search().page) || 1
-            $http.get(`${url}?skip=${(page - 1) * 8}&limit=8`).then(function(response) {
+            $http.get(`${url}?skip=${(page - 1) * limitPage}&limit=`+limitPage).then(function(response) {
                 vm.billingCycle = {credits: [{}], debts: [{}]}
                 vm.billingCycles = response.data
                 vm.calculateValues()
 
                 $http.get(`${url}/count`).then(function(response) {
-                    vm.pages = Math.ceil(response.data.value / 8)
+                    vm.pages = Math.ceil(response.data.value / limitPage)
                     tabs.show(vm, {tabList: true, tabCreate: true})
                 })
             })
